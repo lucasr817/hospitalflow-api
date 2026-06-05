@@ -2,6 +2,7 @@ package com.lucas.hospitalflow_api.ticket.entity;
 
 import com.lucas.hospitalflow_api.ticket.enums.TicketStatus;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tickets")
@@ -15,6 +16,16 @@ public class Ticket {
 
     @Enumerated(EnumType.STRING)
     private TicketStatus status;
+
+    private LocalDateTime dataCriacao;
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 
     public long getId() {
         return id;
