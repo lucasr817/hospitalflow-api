@@ -21,4 +21,8 @@ public class TicketController {
     public Ticket criarSenha() {
         return ticketService.criarSenha();
     }
+    @PostMapping("/chamar")
+    public Ticket chamarProximaSenha() {
+        return ticketService.chamarProximaSenha();
+    }
 }

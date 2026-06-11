@@ -19,7 +19,14 @@ public class TicketService {
     public Ticket criarSenha() {
         Ticket ticket = new Ticket();
 
-        var ultimoTicket = ticketRepository.findTopByOrderByIdDesc();
+
+        LocalDateTime inicioDoDia = LocalDateTime.now()
+                .toLocalDate()
+                .atStartOfDay();
+
+        var ultimoTicket = ticketRepository
+                .findTopByDataCriacaoAfterOrderByDataCriacaoDesc(inicioDoDia);
+
         String novaSenha = "A001";
 
         if (ultimoTicket.isPresent()) {
@@ -41,6 +48,21 @@ public class TicketService {
         ticket.setDataCriacao(LocalDateTime.now());
 
         return ticketRepository.save(ticket);
+
+    }
+
+    public Ticket chamarProximaSenha() {
+
+        var ticket = ticketRepository
+                .findFirstByStatusOrderByDataCriacaoAsc(TicketStatus.AGUARDANDO);
+
+        if (ticket.isEmpty()) {
+            throw new RuntimeException("Nenhuma senha aguardando atendimento");
+        }
+
+        Ticket ticketEncontrado = ticket.get();
+        ticketEncontrado.setStatus(TicketStatus.CHAMADO);
+        return ticketRepository.save(ticketEncontrado);
 
     }
 }
