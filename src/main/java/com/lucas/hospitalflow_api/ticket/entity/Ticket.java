@@ -13,11 +13,20 @@ public class Ticket {
     private long id;
 
     private String numeroSenha;
-
     @Enumerated(EnumType.STRING)
     private TicketStatus status;
 
     private LocalDateTime dataCriacao;
+
+    private LocalDateTime dataFinalizacao;
+
+    public LocalDateTime getDataFinalizacao() {
+        return dataFinalizacao;
+    }
+
+    public void setDataFinalizacao(LocalDateTime dataFinalizacao) {
+        this.dataFinalizacao = dataFinalizacao;
+    }
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;

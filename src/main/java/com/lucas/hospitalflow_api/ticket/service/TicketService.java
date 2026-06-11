@@ -65,4 +65,19 @@ public class TicketService {
         return ticketRepository.save(ticketEncontrado);
 
     }
+    public Ticket finalizarAtendimento(Long id) {
+        var ticket = ticketRepository.findById(id);
+
+        if (ticket.isEmpty()) {
+            throw new RuntimeException("Ticket não encontrado ");
+        }
+
+        Ticket ticketEncontrado = ticket.get();
+
+        ticketEncontrado.setStatus(TicketStatus.FINALIZADO);
+        ticketEncontrado.setDataFinalizacao(LocalDateTime.now());
+
+        return ticketRepository.save(ticketEncontrado);
+
+    }
 }
